@@ -218,4 +218,13 @@ class BouncyBoxLeftMoverView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : BouncyBoxLeftMoverView {
+            val view : BouncyBoxLeftMoverView = BouncyBoxLeftMoverView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
