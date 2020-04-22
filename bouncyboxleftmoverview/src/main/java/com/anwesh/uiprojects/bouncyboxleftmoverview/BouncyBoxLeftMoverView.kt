@@ -64,3 +64,19 @@ fun Canvas.drawBBLMNode(i : Int, scale : Float, paint : Paint) {
     drawBouncyBoxLeftMovers(scale, w, size, paint)
     restore()
 }
+
+class BouncyBoxLeftMoverView(ctx : Context) : View(ctx) {
+
+    override fun onDraw(canvas : Canvas) {
+
+    }
+
+    override fun onTouchEvent(event : MotionEvent) : Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+
+            }
+        }
+        return true
+    }
+}
