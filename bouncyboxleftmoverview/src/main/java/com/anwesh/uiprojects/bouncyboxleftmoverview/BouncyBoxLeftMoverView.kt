@@ -14,8 +14,8 @@ import android.graphics.Color
 import android.graphics.RectF
 
 val nodes : Int = 5
-val boxes : Int = 4
-val scGap : Float = 0.02f
+val boxes : Int = 3
+val scGap : Float = 0.02f / (boxes - 1)
 val strokeFactor : Int = 90
 val sizeFactor : Float = 2.9f
 val foreColor : Int = Color.parseColor("#4CAF50")
@@ -28,20 +28,20 @@ fun Float.divideScale(i : Int, n : Int) : Float = Math.min(n.inverse(), maxScale
 fun Float.sinify() : Float = Math.sin(this * Math.PI).toFloat()
 
 fun Canvas.drawBouncyBoxLeftMover(i : Int, scale : Float, gap : Float, size : Float, paint : Paint) {
-    val sf : Float = scale.sinify()
+    val sf : Float = scale.sinify().divideScale(i, boxes - 1)
     val sf1 : Float = sf.divideScale(0, 2)
     val sf2 : Float = sf.divideScale(1, 2)
     save()
     translate(i * gap + gap * sf2, 0f)
-    drawRect(RectF(0f, 0f, size, size), paint)
-    drawLine(0f, 0f, gap * (sf1 - sf2), 0f, paint)
+    drawRect(RectF(0f, -size / 2, size, size / 2), paint)
+    drawLine(size / 2, 0f, size / 2 + gap * (sf1 - sf2), 0f, paint)
     restore()
 }
 
 
 fun Canvas.drawBouncyBoxLeftMovers(scale : Float, w : Float, size : Float, paint : Paint) {
     paint.style = Paint.Style.STROKE
-    val gap : Float = w / (boxes - 1)
+    val gap : Float = (w - size) / (boxes - 1)
     for (j in 0..(boxes - 1)) {
         drawBouncyBoxLeftMover(j, 0f, gap, size, paint)
     }
